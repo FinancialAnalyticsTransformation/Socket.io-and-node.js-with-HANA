@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.io example template</title>
+</head>
+<body>
+    <ul id="events"></ul>
+	<script src="http://localhost:3030/socket.io/socket.io.js"></script>
+    <script>
+        const $events = document.getElementById('events');
+
+        const newItem = (content) => {
+          const item = document.createElement('li');
+          item.innerText = content;
+          return item;
+        };
+
+        const socket = io();
+
+        socket.on('connect', () => {
+          $events.appendChild(newItem('connected'));
+        });
+		socket.emit('Run Procedure!');	
+		socket.on('all done!', (counter) => {
+			$events.appendChild(newItem(`Procedure Completed!`));
+		});
+
+    </script>
+</body>
+</html>
